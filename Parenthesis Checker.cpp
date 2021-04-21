@@ -1,73 +1,78 @@
-#include<iostream>
+/*
+Find whether the given mathematical expression has balanced parentheses, braces and square brackets.
+
+Input Format
+
+The input has an expression with parantheses, braces and square brackets.
+
+Constraints
+
+The input has an expression with parantheses, braces and square brackets.
+
+Output Format
+
+Print YES if the expressionis balanced, else print NO.
+
+Sample Input 0
+
+(2+2)
+Sample Output 0
+
+YES
+*/
+
+#include<bits/stdc++.h>
 using namespace std;
-#include<string.h>
-#include<ctype.h>
-class stack{
-	private:
-		int top;
-		char s[1000];
-	public:
-		stack()
-		{
-			top=-1;
-		}
-		char pop();
-		void push(char);
-		int isempty();
-};
-int stack::isempty()
+// to check whether the closing bracket matches the most recent opening bracket 
+bool match(char a,char b)
 {
-	if(top==-1)
+	bool ans;
+	switch(a)
 	{
-		return 1;
+		case '}':
+			ans=(b=='{')?true:false;
+			break;
+		case ']':
+			ans= (b=='[')?true:false;
+			break;
+		case ')':
+			ans=(b=='(')?true:false;
+			break;
 	}
-	else return 0;
+	return ans;
 }
-void stack::push(char x)
+
+bool isbalanced(string exp)
 {
-	if(top==-1)
-		top=0;
-	else
-		top+=1;
-	s[top]=x;
-}
-char stack::pop()
-{
-	char t=s[top];
-	top--;
-	return t;
-}
-main()
-{
-	int test;
-	cin>>test;
-	cin>>ws;
-	while(test--)
+	stack <char> st;
+	for(int i=0;i<exp.length();i++)
 	{
-	int n,flag=0;
-	stack s;
-	string a;
-	getline(cin,a);
-	for(int i=0;a[i]!='\0';i++)
-	{
-		if(a[i]=='('||a[i]=='{'||a[i]=='[')
+		if(exp[i]=='{'||exp[i]=='('||exp[i]=='[')
+			st.push(exp[i]);
+		else if(exp[i]=='}'||exp[i]==')'||exp[i]==']')
 		{
-			s.push(a[i]);
-		}
-		else if(a[i]==')'||a[i]==']'||a[i]=='}')
-		{
-			char m=s.pop();
-			if((m=='(' && a[i]==')') || (m=='{' && a[i]=='}') || (m=='[' && a[i]==']'))
-				continue;
-			else 
+			if(st.empty())
+				return false;
+			if(match(exp[i],st.top()))
 			{
-				flag++;
-				break;
+				st.pop();
 			}
+			else
+				return false;
 		}
+		else
+			continue;
 	}
-	if(s.isempty()&&flag==0)
-		cout<<"balanced\n";	
+	return true;
+}
+
+int main()
+{
+	string s;
+	cin>>s;
+	if(isbalanced(s))
+		cout<<"YES\n";
 	else
-		cout<<"not balanced\n";
-}}
+		cout<<"NO\n";
+	return 0;
+}
