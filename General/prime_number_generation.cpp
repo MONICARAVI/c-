@@ -1,3 +1,5 @@
+/*Given two integers A and B. Generate all the prime numbers from A to B (both inclusive)*/
+
 #include <iostream>
 using namespace std;
 
