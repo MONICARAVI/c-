@@ -1,4 +1,17 @@
-/*One edit apart*/
+/*One edit apart
+GIven two strings determine if they are both one edit distance apart.
+Note: An edit between two strings is one of the following changes:
+	1. Add a character
+	2. Delete a character
+	3. Change a character
+Output true if the two strings are one edit distance apart else false
+
+Example: 
+oho zoho
+TRUE
+
+zoho zoohoo
+FALSE*/
 
 #include<bits/stdc++.h>
 using namespace std;
